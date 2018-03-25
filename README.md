@@ -13,3 +13,11 @@ You app will:
     -user rating (called vote_average in the api)
     -release date
 
+
+#How to build
+
+1. Git clone
+2. Create a "gradle.properties" file
+3. Add this line API_KEY = "YOUR_KEY"
+4. Import it
+
