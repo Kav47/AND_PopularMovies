@@ -4,15 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="5dp">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageViewMovie"
-        android:minWidth="150dp"
-        android:contentDescription="@string/movie_image"
-        android:layout_weight="2"
+        android:id="@+id/mImageView"
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:padding="5dp"
+        app:srcCompat="@mipmap/ic_launcher"
         />
+
+    <TextView
+        android:id="@+id/mTextView"
+        android:layout_width="80dp"
+        android:layout_height="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/mImageView"
+        android:layout_marginTop="5dp"
+        android:text="TextView" />
 
 </LinearLayout>

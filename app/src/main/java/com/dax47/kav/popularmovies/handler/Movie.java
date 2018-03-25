@@ -92,4 +92,6 @@ public class Movie implements Parcelable{
     public List<Movie> getMovies() {
         return Movies;
     }
+
+
 }
