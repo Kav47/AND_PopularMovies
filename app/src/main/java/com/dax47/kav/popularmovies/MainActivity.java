@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private ListView lView;
     Movie movie;
+    ArrayList<Movie> movieList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 Log.i("at onResponse", this.toString() );
                 try {
                     JSONArray jsonArray = response.getJSONArray("results");
-                    ArrayList<Movie> movieLiset = new ArrayList<>();
+                     movieList = new ArrayList<>();
 
                     //Loop through the JsonArray
                     for (int i = 0; i < jsonArray.length(); i++){
@@ -81,9 +82,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                 jObj.getString("poster_path"),
                                 jObj.getDouble("vote_average")
                         );
-                        movieLiset.add(movie);
+                        movieList.add(movie);
                     }
-                    MovieAdapter mAdapter = new MovieAdapter(MainActivity.this, movieLiset);
+                    MovieAdapter mAdapter = new MovieAdapter(MainActivity.this, movieList);
                     lView.setAdapter(mAdapter);
 
                 }catch(JSONException e){
@@ -106,10 +107,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Log.i("at Onclick", "invoked at position"+ Integer.toString(position));
-            Movie movie2 = new Movie(movie.getmTitle(), movie.getmYear(), movie.getmOverviewUri(), movie.getmThumbnail(), movie.getmUserRating());
-
+            //Movie movie2 = new Movie(movie.getmTitle(), movie.getmYear(), movie.getmOverviewUri(), movie.getmThumbnail(), movie.getmUserRating());
             Intent intent = new Intent(this, MovieInfo.class);
-            intent.putExtra("MOVIE", movie2);
+            intent.putExtra("MOVIE", movieList.get(position));
             startActivity(intent);
     }
 }

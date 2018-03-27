@@ -1,7 +1,9 @@
 package com.dax47.kav.popularmovies;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +19,7 @@ public class MovieInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_info);
+        Log.i("At Movie Info", "Hello");
 
         //initialisation
         ivPoster = (ImageView) findViewById(R.id.mImageView);
@@ -25,11 +28,18 @@ public class MovieInfo extends AppCompatActivity {
         tvOverview = (TextView) findViewById(R.id.tvOverview);
         tvRating = (TextView) findViewById(R.id.tvRating);
 
-        Movie movie = getIntent().getParcelableExtra("MOVIE");
+        Movie movie = null;
+        Intent intent = getIntent();
+//        Movie movie = getIntent().getParcelableExtra("MOVIE");
+        Bundle bundle = intent.getExtras();
+        if (bundle != null) {
+            movie = intent.getParcelableExtra("MOVIE");
+
+        }
 
         if(movie != null){
-            Picasso.with(this).load("https://image.tmdb.org/t/p/w185/" + movie.getmThumbnail())
-                    .into(ivPoster);
+//            Picasso.with(this).load("https://image.tmdb.org/t/p/w185" + movie.getmThumbnail())
+//                    .into(ivPoster);
             tvTitle.setText(movie.getmTitle());
             tvDate.setText(movie.getmYear());
             tvOverview.setText(movie.getmOverviewUri());
