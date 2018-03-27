@@ -1,9 +1,11 @@
 package com.dax47.kav.popularmovies;
 
-import android.net.Uri;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.volley.Request;
@@ -19,9 +21,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements MovieFragment.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
     private ListView lView;
+    Movie movie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +32,14 @@ public class MainActivity extends AppCompatActivity implements MovieFragment.OnF
         setContentView(R.layout.activity_main);
 
         lView = (ListView) findViewById(R.id.mListView);
+        lView.setOnItemClickListener(this);
 
 
-        if(savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.movie_container, new MovieFragment())
-                    .commit();
-        }
+//        if(savedInstanceState == null){
+//            getSupportFragmentManager().beginTransaction()
+//                    .add(R.id.movie_container, new MovieFragment())
+//                    .commit();
+//        }
         onRequestAPI();
 
 
@@ -65,22 +69,12 @@ public class MainActivity extends AppCompatActivity implements MovieFragment.OnF
                 try {
                     JSONArray jsonArray = response.getJSONArray("results");
                     ArrayList<Movie> movieLiset = new ArrayList<>();
-                    /*String title;
-                    Double userRating;
-                    String posterURL;
-                    String overview;
-                    String releaseDate; */
 
                     //Loop through the JsonArray
                     for (int i = 0; i < jsonArray.length(); i++){
                         JSONObject jObj = jsonArray.getJSONObject(i);
-                        /*title = movie.getString("title");
-                        userRating = movie.getDouble("vote_average");
-                        posterURL = movie.getString("poster_path");
-                        overview = movie.getString("overview");
-                        releaseDate = movie.getString("release_date"); */
                         //(String mTitle, String mYear, String mOverviewUri, String mThumbnail, Double mUserRating)
-                        Movie movie = new Movie(
+                        movie = new Movie(
                                 jObj.getString("title"),
                                 jObj.getString("release_date"),
                                 jObj.getString("overview"),
@@ -108,8 +102,14 @@ public class MainActivity extends AppCompatActivity implements MovieFragment.OnF
 
     }
 
+
     @Override
-    public void onFragmentInteraction(Uri uri) {
-        return;
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Log.i("at Onclick", "invoked at position"+ Integer.toString(position));
+            Movie movie2 = new Movie(movie.getmTitle(), movie.getmYear(), movie.getmOverviewUri(), movie.getmThumbnail(), movie.getmUserRating());
+
+            Intent intent = new Intent(this, MovieInfo.class);
+            intent.putExtra("MOVIE", movie2);
+            startActivity(intent);
     }
 }

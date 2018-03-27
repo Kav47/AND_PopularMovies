@@ -15,7 +15,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.dax47.kav.popularmovies.handler.Movie;
-import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -69,16 +68,16 @@ public class MovieAdapter extends ArrayAdapter<Movie>{
         ViewHolder viewHolder;
         Movie movie = mMovieList.get(position);
 
-//        if(convertView == null){
+        if(convertView == null){
             convertView = LayoutInflater.from(mActivity).inflate(R.layout.gridview_images, null);
 
             viewHolder = new ViewHolder();
             viewHolder.mImageViewMovie = (ImageView) convertView.findViewById(R.id.mImageView);
             viewHolder.mTextViewMovie = (TextView) convertView.findViewById(R.id.mTextView);
             convertView.setTag(viewHolder);
-//        }else{
-//            viewHolder = (ViewHolder) convertView.getTag();
-//        }
+        }else{
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
 
         //set text
         viewHolder.mTextViewMovie.setText(movie.getmTitle());
