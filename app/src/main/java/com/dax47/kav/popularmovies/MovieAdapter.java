@@ -15,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.dax47.kav.popularmovies.handler.Movie;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -83,7 +84,17 @@ public class MovieAdapter extends ArrayAdapter<Movie>{
         viewHolder.mTextViewMovie.setText(movie.getmTitle());
 
         Picasso.with(mActivity).load("https://image.tmdb.org/t/p/w185/" + movie.getmThumbnail())
-                .into(viewHolder.mImageViewMovie);
+                .into(viewHolder.mImageViewMovie, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Log.i("MovieAdapter_Picasso", "Success!");
+                    }
+
+                    @Override
+                    public void onError() {
+                        Log.e("MovieAdapter_Picasso", "ERROR!");
+                    }
+                });
         return convertView;
     }
 
