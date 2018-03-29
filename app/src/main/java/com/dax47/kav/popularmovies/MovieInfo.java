@@ -1,5 +1,6 @@
 package com.dax47.kav.popularmovies;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,7 +31,6 @@ public class MovieInfo extends AppCompatActivity {
 
         Movie movie = null;
         Intent intent = getIntent();
-//        Movie movie = getIntent().getParcelableExtra("MOVIE");
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             movie = intent.getParcelableExtra("MOVIE");
@@ -38,12 +38,12 @@ public class MovieInfo extends AppCompatActivity {
         }
 
         if(movie != null){
-//            Picasso.with(this).load("https://image.tmdb.org/t/p/w185" + movie.getmThumbnail())
-//                    .into(ivPoster);
+            Picasso.with(MovieInfo.this).load("https://image.tmdb.org/t/p/w500" + movie.getmThumbnail())
+                    .into(ivPoster);
             tvTitle.setText(movie.getmTitle());
-            tvDate.setText(movie.getmYear());
+            tvDate.setText("Release Date: " +movie.getmYear());
             tvOverview.setText(movie.getmOverviewUri());
-            tvRating.setText(Double.toString(movie.getmUserRating()));
+            tvRating.setText("User Rating: " + Double.toString(movie.getmUserRating()));
         }
     }
 }
