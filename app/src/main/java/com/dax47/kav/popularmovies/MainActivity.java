@@ -3,10 +3,16 @@ package com.dax47.kav.popularmovies;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.preference.PreferenceManager;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -27,40 +33,62 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     Movie movie;
     ArrayList<Movie> movieList;
 
+    //API stuff
+    //API STUFF
+    final String API = "&api_key=";
+    final String API_KEY = BuildConfig.API_KEY;
+    //API url
+    final String API_URL = "http://api.themoviedb.org/3/discover/movie?";
+    //sort order
+    final String SORT_POPUL = "sort_by=popularity.desc";
+    //Highest rating
+    final String SORT_RATING = "sort_by=vote_average.desc";
+    //Movie thumbnail
+    final String MOVIE_IMAGE = "https://image.tmdb.org/t/p/w185/";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //initialising toolbar
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+
 
         lView = (ListView) findViewById(R.id.mListView);
         lView.setOnItemClickListener(this);
 
+        //todo
+        //Preferencemanager
+        //PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
 //        if(savedInstanceState == null){
 //            getSupportFragmentManager().beginTransaction()
 //                    .add(R.id.movie_container, new MovieFragment())
 //                    .commit();
 //        }
-        onRequestAPI();
+
+
+        sortByPopularity();
 
 
     }
 
-    public void onRequestAPI(){
+    public void sortByPopularity(){
+        String FINAL_URL = API_URL + SORT_POPUL + API + API_KEY;
+        onRequestAPI(FINAL_URL);
+    }
+
+    public void sortByRating(){
+        String FINAL_URL = API_URL + SORT_RATING + API + API_KEY;
+        onRequestAPI(FINAL_URL);
+    }
+
+    public void onRequestAPI(String s){
         Log.i("at onRequestAPI", this.toString() );
-        //API STUFF
-        final String API = "&api_key=";
-        final String API_KEY = BuildConfig.API_KEY;
-        //API url
-        final String API_URL = "http://api.themoviedb.org/3/discover/movie?";
-        //sort order
-        final String SORT_POPUL = "sort_by=popularity.desc";
-        //Highest rating
-        final String SORT_RATING = "sort_by=vote_average.desc";
-        //Movie thumbnail
-        final String MOVIE_IMAGE = "https://image.tmdb.org/t/p/w185/";
+
         //Final URL
-        final String FINAL_URL = API_URL + SORT_POPUL + API + API_KEY;
+        String FINAL_URL = s;
 
         //REF https://www.youtube.com/watch?v=y2xtLqP8dSQ
         final JsonObjectRequest mJsonObjectRequest = new JsonObjectRequest(Request.Method.GET, FINAL_URL, null, new Response.Listener<JSONObject>() {
@@ -111,5 +139,29 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             Intent intent = new Intent(this, MovieInfo.class);
             intent.putExtra("MOVIE", movieList.get(position));
             startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater mMenuInflater = getMenuInflater();
+        mMenuInflater.inflate(R.menu.settings_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if((item.getItemId() == R.id.action_popularity)){
+            //Toast.makeText(MainActivity.this, "About us", Toast.LENGTH_SHORT).show();
+            sortByPopularity();
+        }
+        if(item.getItemId() == R.id.action_rating){
+////            Toast.makeText(MainActivity.this, "Setting", Toast.LENGTH_SHORT).show();
+            //todo add settings and about
+//            Intent intent = new Intent(this, SettingsActivity.class);
+//            startActivity(intent);
+            sortByRating();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
