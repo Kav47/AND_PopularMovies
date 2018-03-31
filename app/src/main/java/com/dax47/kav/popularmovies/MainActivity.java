@@ -153,6 +153,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         if((item.getItemId() == R.id.action_popularity)){
             //Toast.makeText(MainActivity.this, "About us", Toast.LENGTH_SHORT).show();
             sortByPopularity();
+            return true;
         }
         if(item.getItemId() == R.id.action_rating){
 ////            Toast.makeText(MainActivity.this, "Setting", Toast.LENGTH_SHORT).show();
@@ -161,6 +162,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //            startActivity(intent);
             sortByRating();
             return true;
+        }
+        if(item.getItemId() == R.id.action_swap_layout){
+            //todo
+            Toast.makeText(MainActivity.this, "Todo", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }

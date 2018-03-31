@@ -10,5 +10,9 @@
         android:id="@+id/action_rating"
         android:title="@string/sort_by_rating"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_swap_layout"
+        android:title="@string/swap_layout"
+        app:showAsAction="never"/>
 
 </menu>
