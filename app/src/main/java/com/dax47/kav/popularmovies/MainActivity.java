@@ -1,6 +1,7 @@
 package com.dax47.kav.popularmovies;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceManager;
@@ -11,7 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.GridView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -25,11 +26,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
-    private ListView lView;
+    //private ListView lView;
+    private GridView gView;
     Movie movie;
     ArrayList<Movie> movieList;
 
@@ -54,9 +57,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
+        //todo List view
+//        lView = (ListView) findViewById(R.id.mListView);
+//        lView.setOnItemClickListener(this);
+        // gridview
+        gView = (GridView) findViewById(R.id.mGridView);
+        gView.setOnItemClickListener(this);
 
-        lView = (ListView) findViewById(R.id.mListView);
-        lView.setOnItemClickListener(this);
+        //todo
+        //check internet connection
+        // if (isInternetAvailable()).....
+
 
         //todo
         //Preferencemanager
@@ -68,11 +79,21 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //                    .commit();
 //        }
 
-
         sortByPopularity();
 
 
     }
+    //todo
+    public boolean isInternetAvailable(){
+        try{
+            InetAddress ipAdd = InetAddress.getByName("google.com");
+            return !ipAdd.equals("");
+        }catch (Exception e){
+            return  false;
+        }
+    }
+
+
 
     public void sortByPopularity(){
         String FINAL_URL = API_URL + SORT_POPUL + API + API_KEY;
@@ -113,7 +134,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         movieList.add(movie);
                     }
                     MovieAdapter mAdapter = new MovieAdapter(MainActivity.this, movieList);
-                    lView.setAdapter(mAdapter);
+                    //lView.setAdapter(mAdapter);
+                    gView.setAdapter(mAdapter);
 
                 }catch(JSONException e){
                     e.printStackTrace();

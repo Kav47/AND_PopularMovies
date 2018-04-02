@@ -43,7 +43,7 @@ public class MovieAdapter extends ArrayAdapter<Movie>{
 
     private static class ViewHolder{
         ImageView mImageViewMovie;
-        TextView mTextViewMovie;
+        //TextView mTextViewMovie;
     }
 
 
@@ -70,18 +70,18 @@ public class MovieAdapter extends ArrayAdapter<Movie>{
         Movie movie = mMovieList.get(position);
 
         if(convertView == null){
-            convertView = LayoutInflater.from(mActivity).inflate(R.layout.gridview_images, null);
+            convertView = LayoutInflater.from(mActivity).inflate(R.layout.list_item, null);
 
             viewHolder = new ViewHolder();
             viewHolder.mImageViewMovie = (ImageView) convertView.findViewById(R.id.mImageView);
-            viewHolder.mTextViewMovie = (TextView) convertView.findViewById(R.id.mTextView);
+            //viewHolder.mTextViewMovie = (TextView) convertView.findViewById(R.id.mTextView);
             convertView.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
         //set text
-        viewHolder.mTextViewMovie.setText(movie.getmTitle());
+        //viewHolder.mTextViewMovie.setText(movie.getmTitle());
 
         Picasso.with(mActivity).load("https://image.tmdb.org/t/p/w185/" + movie.getmThumbnail())
                 .into(viewHolder.mImageViewMovie, new Callback() {

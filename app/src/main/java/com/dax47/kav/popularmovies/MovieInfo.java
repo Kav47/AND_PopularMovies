@@ -67,4 +67,5 @@ public class MovieInfo extends AppCompatActivity {
             tvRating.setText("User Rating: " + Double.toString(movie.getmUserRating()));
         }
     }
+
 }
