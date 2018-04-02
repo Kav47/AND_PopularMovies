@@ -41,11 +41,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     final String API = "&api_key=";
     final String API_KEY = BuildConfig.API_KEY;
     //API url
-    final String API_URL = "http://api.themoviedb.org/3/discover/movie?";
+    final String API_URL = "http://api.themoviedb.org/3/movie/";
     //sort order
-    final String SORT_POPUL = "sort_by=popularity.desc";
+    //https://api.themoviedb.org/3/movie/popular?&api_key=xxx
+    final String SORT_POPUL = "popular?";
     //Highest rating
-    final String SORT_RATING = "sort_by=vote_average.desc";
+    final String SORT_RATING = "top_rated?";
     //Movie thumbnail
     final String MOVIE_IMAGE = "https://image.tmdb.org/t/p/w185/";
 
