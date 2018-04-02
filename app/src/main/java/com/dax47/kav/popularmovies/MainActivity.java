@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         //todo
         //check internet connection
-        // if (isInternetAvailable()).....
+        // if (isInternetAvailable())..
 
 
         //todo
