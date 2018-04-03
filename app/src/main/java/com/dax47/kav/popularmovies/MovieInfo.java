@@ -15,23 +15,33 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MovieInfo extends AppCompatActivity {
 
-    private ImageView ivPoster;
-    private TextView tvTitle, tvDate, tvOverview, tvRating;
+//    private ImageView ivPoster;
+//    private TextView tvTitle, tvDate, tvOverview, tvRating;
+    @BindView(R.id.ivPoster) ImageView ivPoster;
+    @BindView(R.id.tvTitle) TextView tvTitle;
+    @BindView(R.id.tvDate) TextView tvDate;
+    @BindView(R.id.tvOverview) TextView tvOverview;
+    @BindView(R.id.tvRating) TextView tvRating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_info);
+        ButterKnife.bind(this);
         Log.i("At Movie Info", "Hello");
 
-        //initialisation
-        ivPoster = (ImageView) findViewById(R.id.ivPoster);
-        tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvDate = (TextView) findViewById(R.id.tvDate);
-        tvOverview = (TextView) findViewById(R.id.tvOverview);
-        tvRating = (TextView) findViewById(R.id.tvRating);
+//        //initialisation
+//        ivPoster = (ImageView) findViewById(R.id.ivPoster);
+//        tvTitle = (TextView) findViewById(R.id.tvTitle);
+//        tvDate = (TextView) findViewById(R.id.tvDate);
+//        tvOverview = (TextView) findViewById(R.id.tvOverview);
+//        tvRating = (TextView) findViewById(R.id.tvRating);
+
 
         Movie movie = null;
         Intent intent = getIntent();
